@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from django.conf import settings
+from menu.models import MenuItem
 from users.models import User
 
 
@@ -20,14 +20,23 @@ class Order(models.Model):
     order_contents = models.CharField(max_length=55)
     total_price = models.IntegerField()
 
+    def __str__(self):
+        return self.order_contents
 
-class MenuItem(models.Model):
-    name = models.CharField(max_length=100)
+
+class Menu(models.Model):
+    menu = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.menu
 
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     work_schedule = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.user
 
 
 class Notification(models.Model):
@@ -47,6 +56,9 @@ class Notification(models.Model):
                 message = f"Напоминание! Примите заказ  #{order.id}"
                 notification = cls.objects.create(profile=order.profile, message=message)
 
+    def __str__(self):
+        return self.user
+
 
 class WorkSchedule(models.Model):
     DAY_CHOICES = (
@@ -64,3 +76,6 @@ class WorkSchedule(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     is_weekend = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user
