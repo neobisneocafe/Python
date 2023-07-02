@@ -11,6 +11,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
             'url',
         )
 
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
@@ -40,6 +41,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
             "url",
             "images",
         )
+
     def create(self, validated_data):
         uploaded_images = validated_data.pop("uploaded_images", [])
 
@@ -60,7 +62,6 @@ class MenuItemSerializer(serializers.ModelSerializer):
 
 
 class MenuItemImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MenuItemImage
         fields = (
