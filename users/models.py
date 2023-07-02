@@ -8,14 +8,14 @@ class SuperUser(BaseUserManager):
     def create_superuser(self, name, phone, password, **other_fields):
         other_fields.setdefault("is_staff", True)
         other_fields.setdefault("is_superuser", True)
-        other_fields.setdefault("role", 'admin')
+        other_fields.setdefault("role", 'admin_panel')
 
         if other_fields.get("is_staff") is not True:
             raise ValueError("Superuser must be assigned to is_staff=True")
         if other_fields.get("is_superuser") is not True:
             raise ValueError("Superuser must be assigned to is_superuser=True")
-        if other_fields.get("role") != 'admin':
-            raise ValueError("Superuser must be assigned to role=admin")
+        if other_fields.get("role") != 'admin_panel':
+            raise ValueError("Superuser must be assigned to role=admin_panel")
         return self.create_user(name=name, phone=phone, password=password, **other_fields)
 
     def create_user(self, name, phone, password=None, **extra_fields):
@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('client', 'client'),
         ('barista', 'barista'),
         ('waiter', 'waiter'),
-        ('admin', 'admin'),
+        ('admin_panel', 'admin_panel'),
     ]
     role = models.CharField(max_length=255, choices=role_choices, null=True, default='client')
     name = models.CharField(max_length=150)
