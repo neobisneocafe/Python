@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets, permissions, filters
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -5,13 +6,14 @@ from rest_framework.response import Response
 from .models import Order, MenuItem, UserProfile, Notification, WorkSchedule
 from .serializers import (
     OrderSerializer,
-    MenuItemSerializer,
+    MenuSerializer,
     UserProfileSerializer,
     NotificationSerializer,
     WorkScheduleSerializer,
 )
 
 
+@extend_schema(tags=["Order"])
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
@@ -32,24 +34,28 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
-class MenuItemViewSet(viewsets.ModelViewSet):
+@extend_schema(tags=["Menu"])
+class MenuViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
-    serializer_class = MenuItemSerializer
+    serializer_class = MenuSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
+@extend_schema(tags=["UserProfile"])
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
+@extend_schema(tags=["Notification"])
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
+@extend_schema(tags=["WorkSchedule"])
 class WorkScheduleViewSet(viewsets.ModelViewSet):
     queryset = WorkSchedule.objects.all()
     serializer_class = WorkScheduleSerializer

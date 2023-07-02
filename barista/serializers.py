@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Order, MenuItem, UserProfile, Notification, WorkSchedule
+from .models import Order, Menu, UserProfile, Notification, WorkSchedule
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -10,9 +10,9 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class MenuItemSerializer(serializers.ModelSerializer):
+class MenuSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MenuItem
+        model = Menu
         fields = '__all__'
 
 
