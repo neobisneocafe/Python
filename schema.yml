@@ -1539,7 +1539,7 @@ components:
       - client
       - barista
       - waiter
-      - admin
+      - admin_panel
       type: string
       description: |-
         * `client` - client
