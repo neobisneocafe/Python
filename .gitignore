@@ -1,0 +1,4 @@
+.idea
+venv
+neocafe/.env
+db.sqlite3
