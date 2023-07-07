@@ -2,3 +2,4 @@
 venv
 neocafe/.env
 db.sqlite3
+.gitignore
