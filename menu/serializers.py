@@ -23,6 +23,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'expiration_date',
         )
 
+
 class MenuItemSerializer(serializers.ModelSerializer):
     category = MenuCategorySerializer(read_only=True)
     products = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), many=True)
