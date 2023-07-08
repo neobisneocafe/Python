@@ -1,5 +1,4 @@
 .idea
 venv
-neocafe/.env
+.env
 db.sqlite3
-.gitignore
