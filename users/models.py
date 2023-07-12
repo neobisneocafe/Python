@@ -43,11 +43,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=150)
     surname = models.CharField(max_length=150)
     phone = models.CharField(max_length=20, unique=True)
+    is_verified = models. BooleanField(default=False)
     birthday = models.DateField(null=True, blank=True)
     bonuses = models.IntegerField(default=0)
     order_history = models.CharField(max_length=255)
     is_client = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
+    verification_code = models.CharField(max_length=4)
 
     USERNAME_FIELD = "phone"
     REQUIRED_FIELDS = ['name']

@@ -5,7 +5,11 @@ from .models import User
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "name", "phone")
+        fields = ("id", "name", "phone", 'verification_code')
+
+
+class VerificationSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=4)
 
 
 class LoginSerializer(serializers.Serializer):
