@@ -9,14 +9,16 @@ services:
     ports:
     - 8000:8000
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
-
     depends_on:
       - db
 
   db:
-    image: sqlite:latest
+    image: postgres:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - 5432:5432
     volumes:
-      - db_data:/data
+      - "./postgres:/var/lib/postgresql/data"
 
-volumes:
-  db_data:
