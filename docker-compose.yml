@@ -2,6 +2,12 @@ version: "3.10"
 
 services:
 
+  python-db-1:
+    image: python-app
+    environment:
+      - POSTGRES_PASSWORD=6969
+
+
   db:
     image: postgres:latest
     restart: always
@@ -11,6 +17,7 @@ services:
       - 5432:5432
     volumes:
       - "./postgres:/var/lib/postgresql/data"
+
 
   app:
     build: .
