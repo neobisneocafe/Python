@@ -19,7 +19,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             'birth_date',
         )
 
-class WorkSchedule(serializers.ModelSerializer):
+class WorkScheduleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = WorkSchedule
