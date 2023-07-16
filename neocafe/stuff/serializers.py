@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Branch, Employee
+from .models import Branch, Employee,WorkSchedule
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,8 +7,25 @@ class BranchSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    branch = BranchSerializer()
+    branch = BranchSerializer(read_only=True)
 
     class Meta:
         model = Employee
-        fields = ['name', 'position', 'branch', 'phone_number', 'work_schedule']
+        fields = (
+            'name',
+            'position',
+            'branch',
+            'phone_number',
+            'birth_date',
+        )
+
+class WorkSchedule(serializers.ModelSerializer):
+
+    class Meta:
+        model = WorkSchedule
+        fields = (
+            'day_of_week',
+            'start_time',
+            'end_time',
+            'employee'
+        )
