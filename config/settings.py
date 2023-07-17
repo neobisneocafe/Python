@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'users',
     'barista',
     'menu',
-    'warehouse'
+    'warehouse',
+    'stuff',
 
 
 ]
