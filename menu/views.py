@@ -1,4 +1,3 @@
-from rest_framework import filters
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
 from .serializers import MenuCategorySerializer,MenuItemSerializer,ProductSerializer,MenuItemImageSerializer
@@ -15,15 +14,12 @@ class MenuCategoryViewSet(viewsets.ModelViewSet):
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
     serializer_class = MenuItemSerializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['name', 'products']
 
 
 @extend_schema(tags=["Products"])
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
 
 @extend_schema(tags=["Menu Item Images"])
 class MenuItemImageViewSet(viewsets.ModelViewSet):
