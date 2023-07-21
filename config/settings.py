@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "django_filters",
     "rest_framework_simplejwt",
     'drf_spectacular',
+    'corsheaders',
 
 
 
@@ -40,6 +41,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +55,14 @@ MIDDLEWARE = [
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
+
+ALLOWED_ORIGINS = [
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    ]
+
 ROOT_URLCONF = 'config.urls'
 
 
