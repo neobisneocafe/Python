@@ -75,7 +75,7 @@ class LoginView(generics.CreateAPIView):
 @extend_schema(tags=["ProfileChange"])
 class ProfileChangeView(generics.UpdateAPIView):
     queryset = User.objects.all()
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
     serializer_class = UserProfileSerializer
 
 
