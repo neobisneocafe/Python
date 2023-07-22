@@ -38,25 +38,23 @@ class OrderViewSet(viewsets.ModelViewSet):
 class MenuViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
     serializer_class = MenuSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
+    permission_classes = [permissions.AllowAny]
 
 @extend_schema(tags=["UserProfile"])
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    # permission_classes = [permissions.IsAuthenticated]
-
+    permission_classes = [permissions.AllowAny]
 
 @extend_schema(tags=["Notification"])
 class NotificationViewSet(viewsets.ModelViewSet):
     queryset = Notification.objects.all()
     serializer_class = NotificationSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
 
 
 @extend_schema(tags=["WorkSchedule"])
 class WorkScheduleViewSet(viewsets.ModelViewSet):
     queryset = WorkSchedule.objects.all()
     serializer_class = WorkScheduleSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
