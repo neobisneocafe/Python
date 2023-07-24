@@ -5,6 +5,7 @@ from rest_framework import generics, status, viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
 from twilio.rest import Client
 from config import settings
 from .models import User, Cart
@@ -61,6 +62,7 @@ class LoginView(generics.CreateAPIView):
             return Response({'detail': 'Invalid phone number.'}, status=status.HTTP_400_BAD_REQUEST)
 
         verification_code = str(randint(1000, 9999))
+        refresh = RefreshToken.for_user(user)
 
         client = Client(settings.TWILIO_ACCOUNT_SID, settings.TWILIO_AUTH_TOKEN)
         message = client.messages.create(
@@ -69,13 +71,17 @@ class LoginView(generics.CreateAPIView):
             to=phone
         )
 
-        return Response({'detail': 'SMS with verification code sent.'}, status=status.HTTP_200_OK)
+        return Response({
+            'detail': 'SMS with verification code sent.',
+            "refresh": str(refresh),
+            "access": str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
 
 
 @extend_schema(tags=["ProfileChange"])
 class ProfileChangeView(generics.UpdateAPIView):
     queryset = User.objects.all()
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
     serializer_class = UserProfileSerializer
 
 
