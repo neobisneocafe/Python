@@ -10,7 +10,6 @@ class MenuItemImageSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "image",
-            "menuitem",
         )
 
     def get_url(self, obj):
@@ -42,37 +41,39 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class MenuItemSerializer(serializers.ModelSerializer):
     category = serializers.PrimaryKeyRelatedField(queryset=MenuCategory.objects.all())
-    images = MenuItemImageSerializer(many=True, read_only=True)
-    uploaded_images = serializers.ListField(
-        child=serializers.ImageField(required=False),
-        allow_empty=True,
-        write_only=True,
-        required=False,
-    )
+    menu_item_images = serializers.SerializerMethodField()
+    image = serializers.ImageField(write_only=True)
 
     class Meta:
         model = MenuItem
         fields =(
             'id',
-            'url',
-            'images',
             'category',
+            'menu_item_images',
             'products',
             'name',
             'description',
             'price',
-            'uploaded_images'
+            'image',
         )
+    def get_menu_item_images(self, obj):
+        menu_item_images = MenuItemImage.objects.filter(menuitem=obj)
+        return MenuItemImageSerializer(menu_item_images, many=True).data
 
     def create(self, validated_data):
         uploaded_images = validated_data.pop("uploaded_images", [])
         products_data = validated_data.pop("products", [])
 
+        image = validated_data.pop("image", None)
+
         menu_item = MenuItem.objects.create(**validated_data)
 
-        menu_item.products.set(products_data)  # Use set() to assign many-to-many relationship
+        menu_item.products.set(products_data)
 
-        for image in uploaded_images:
+        for img in uploaded_images:
+            MenuItemImage.objects.create(image=img, menuitem=menu_item)
+
+        if image:
             MenuItemImage.objects.create(image=image, menuitem=menu_item)
 
         return menu_item
@@ -81,11 +82,16 @@ class MenuItemSerializer(serializers.ModelSerializer):
         uploaded_images = validated_data.pop("uploaded_images", [])
         products_data = validated_data.pop("products", [])
 
+        image = validated_data.pop("image", None)
+
         instance = super().update(instance, validated_data)
 
-        instance.products.set(products_data)  # Use set() to assign many-to-many relationship
+        instance.products.set(products_data)
 
-        for image in uploaded_images:
+        for img in uploaded_images:
+            MenuItemImage.objects.create(image=img, menuitem=instance)
+
+        if image:
             MenuItemImage.objects.create(image=image, menuitem=instance)
 
         return instance
