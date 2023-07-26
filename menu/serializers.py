@@ -1,10 +1,8 @@
 from rest_framework import serializers
-
-from .models import MenuCategory,MenuItem,Product,MenuItemImage
+from .models import MenuCategory, MenuItem, Product, MenuItemImage
 
 
 class MenuItemImageSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = MenuItemImage
         fields = (
@@ -26,6 +24,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
             'name',
             'url',
         )
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,6 +55,7 @@ class MenuItemSerializer(serializers.ModelSerializer):
             'price',
             'image',
         )
+
     def get_menu_item_images(self, obj):
         menu_item_images = MenuItemImage.objects.filter(menuitem=obj)
         return MenuItemImageSerializer(menu_item_images, many=True).data

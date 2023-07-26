@@ -1,6 +1,7 @@
 from django.db import models
 from django.core import validators
 
+
 class MenuCategory(models.Model):
     objects = models.Manager()
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
@@ -23,7 +24,7 @@ class Product(models.Model):
 
 class MenuItem(models.Model):
     objects = models.Manager()
-    category = models.ForeignKey(MenuCategory,on_delete=models.CASCADE, null=True,)
+    category = models.ForeignKey(MenuCategory, on_delete=models.CASCADE, null=True,)
     products = models.ManyToManyField(Product)
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
     description = models.TextField(max_length=255)
