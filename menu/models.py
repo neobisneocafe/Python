@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 
 class MenuCategory(models.Model):
     objects = models.Manager()
@@ -22,12 +23,11 @@ class Product(models.Model):
 
 class MenuItem(models.Model):
     objects = models.Manager()
-
-    category = models.ForeignKey(MenuCategory, on_delete=models.CASCADE, null=True)
+    category = models.ForeignKey(MenuCategory,on_delete=models.CASCADE, null=True,)
     products = models.ManyToManyField(Product)
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
     description = models.TextField(max_length=255)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default='0.00')
+    price = models.DecimalField(max_digits=7, decimal_places=2, default=0, validators=[validators.MinValueValidator(0)])
     image = models.ImageField(upload_to="images/menuitem/", null=True, blank=True)
 
     def __str__(self):
