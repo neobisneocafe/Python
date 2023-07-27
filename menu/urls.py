@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register(r'menu-categories', MenuCategoryViewSet, basename='menucategory')
 router.register(r'products', ProductViewSet, basename='product')
 router.register(r'menu-items', MenuItemViewSet, basename='menuitem')
-# router.register(r'menu-item-images', MenuItemImageViewSet, basename='menuitemimage')
+router.register(r'menu-item-images', MenuItemImageViewSet, basename='menuitemimage')
 
 
 urlpatterns = [

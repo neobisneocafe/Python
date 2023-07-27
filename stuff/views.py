@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
-from .models import Employee,Branch,WorkSchedule
-from .serializers import EmployeeSerializer,BranchSerializer,WorkScheduleSerializer
+from .models import Employee, Branch, WorkSchedule
+from .serializers import EmployeeSerializer, BranchSerializer, WorkScheduleSerializer
 
 
 @extend_schema(tags=["Employee"])
@@ -20,3 +20,4 @@ class BranchViewSet(viewsets.ModelViewSet):
 class WorkScheduleViewSet(viewsets.ModelViewSet):
     queryset = WorkSchedule.objects.all()
     serializer_class = WorkScheduleSerializer
+
