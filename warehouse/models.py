@@ -1,9 +1,11 @@
 from django.db import models
 from django.utils import timezone
 
+import menu.models
+
 
 class Category(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.ForeignKey(menu.models.MenuCategory, on_delete=models.CASCADE)
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -28,7 +30,6 @@ class Branches(models.Model):
 
 class Warehouse(models.Model):
     branches_id = models.ForeignKey(Branches, on_delete=models.CASCADE, default=None)
-    product_id = models.IntegerField(default=None)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     quantity = models.IntegerField(default=None)
     arrivalDate = models.DateTimeField(default=timezone.now)
