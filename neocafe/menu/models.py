@@ -4,6 +4,7 @@ from django.core import validators
 class MenuCategory(models.Model):
     objects = models.Manager()
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
+    photo = models.ImageField(upload_to='photos/menucategory', blank=True, null=True)
 
     def __str__(self):
         return self.name
