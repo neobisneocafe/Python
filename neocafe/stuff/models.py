@@ -14,7 +14,7 @@ class Employee(models.Model):
     name = models.CharField(max_length=100,blank=False,null=False)
     position = models.CharField(max_length=100,blank=False,null=True)
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE,null=True)
-    phone_number = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50,unique=True)
     birth_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
