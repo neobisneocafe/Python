@@ -37,3 +37,9 @@ class Warehouse(models.Model):
 
     def __str__(self):
         return self.supplier
+
+    def delete_if_zero_quantity(self):
+        if self.quantity == 0:
+            self.delete()
+
+
