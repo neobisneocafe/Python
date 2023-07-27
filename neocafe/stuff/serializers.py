@@ -5,10 +5,16 @@ class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
         fields = '__all__'
+class WorkScheduleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WorkSchedule
+        fields ='__all__'
 
 class EmployeeSerializer(serializers.ModelSerializer):
     branch= serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), allow_null=True)
     branch_info = serializers.SerializerMethodField()
+    workschedules = serializers.SerializerMethodField()
 
     class Meta:
         model = Employee
@@ -20,6 +26,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             'branch_info',
             'phone_number',
             'birth_date',
+            'workschedules',
         )
     def get_branch_info(self, obj):
         if obj.branch:
@@ -27,8 +34,7 @@ class EmployeeSerializer(serializers.ModelSerializer):
             return branch_data
         return None
 
-class WorkScheduleSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = WorkSchedule
-        fields ='__all__'
+    def get_workschedules(self, obj):
+        workschedule = WorkSchedule.objects.filter(employee=obj)
+        workschedule_data = WorkScheduleSerializer(workschedule, many=True).data
+        return workschedule_data
