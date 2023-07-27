@@ -4,16 +4,21 @@ from datetime import time
 
 class Branch(models.Model):
     objects = models.Manager()
-    name = models.CharField(max_length=100,blank=False,unique=True)
+    name = models.CharField(max_length=100, blank=False, unique=True)
 
     def __str__(self):
         return self.name
 
 
 class Employee(models.Model):
+    position_choices = [
+        ('Оффициант', 'Оффициант'),
+        ('Бариста', 'Бариста'),
+        ('Админ', 'Админ'),
+    ]
+    position = models.CharField(max_length=255, choices=position_choices, null=True, default='client')
     objects = models.Manager()
     name = models.CharField(max_length=100,blank=False,null=False)
-    position = models.CharField(max_length=100,blank=False,null=True)
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE,null=True)
     phone_number = models.CharField(max_length=50)
     birth_date = models.DateField(blank=True, null=True)
