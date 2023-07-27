@@ -24,7 +24,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'url',
+            'photo',
         )
 
 class ProductSerializer(serializers.ModelSerializer):
