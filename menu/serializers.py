@@ -8,7 +8,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'name',
-            'url',
+            'photo',
         )
 
 
