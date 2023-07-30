@@ -40,11 +40,13 @@ class MenuViewSet(viewsets.ModelViewSet):
     serializer_class = MenuSerializer
     permission_classes = [permissions.AllowAny]
 
+
 @extend_schema(tags=["UserProfile"])
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
     permission_classes = [permissions.AllowAny]
+
 
 @extend_schema(tags=["Notification"])
 class NotificationViewSet(viewsets.ModelViewSet):
