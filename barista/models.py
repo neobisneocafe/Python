@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
+import menu.models
 from menu.models import MenuItem
 from users.models import User
 
@@ -17,8 +18,7 @@ class Order(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='новый')
     is_takeaway = models.BooleanField(default=False)
     table = models.IntegerField(null=True, default=None)
-    order_contents = models.CharField(max_length=55)
-    total_price = models.IntegerField()
+    order_contents = models.ForeignKey(menu.models.MenuItem, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.order_contents
