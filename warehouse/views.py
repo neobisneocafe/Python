@@ -1,7 +1,7 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import viewsets
-from warehouse.models import Branches, Warehouse, Category
-from warehouse.serializers import BranchesSerializer, WarehouseSerializer, CategorySerializer
+from warehouse.models import Branches, Warehouse, WarehouseCategory
+from warehouse.serializers import BranchesSerializer, WarehouseSerializer, WarehouseCategorySerializer
 
 
 @extend_schema(tags=["Branches"])
@@ -16,7 +16,7 @@ class WareHouseViewSet(viewsets.ModelViewSet):
     serializer_class = WarehouseSerializer
 
 
-@extend_schema(tags=["Category"])
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+@extend_schema(tags=["WarehouseCategory"])
+class WarehouseCategoryViewSet(viewsets.ModelViewSet):
+    queryset = WarehouseCategory.objects.all()
+    serializer_class = WarehouseCategorySerializer
