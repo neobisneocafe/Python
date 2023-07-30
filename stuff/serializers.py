@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Branch, Employee, WorkSchedule
+from django import forms
+from django.core.exceptions import ValidationError
+from .models import Branch,Employee,WorkSchedule
 
 
 class BranchSerializer(serializers.ModelSerializer):
@@ -7,8 +9,16 @@ class BranchSerializer(serializers.ModelSerializer):
         model = Branch
         fields = '__all__'
 
+class WorkScheduleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = WorkSchedule
+        fields ='__all__'
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    branch= serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), allow_null=True)
+    branch_info = serializers.SerializerMethodField()
+    workschedules = serializers.SerializerMethodField()
     class Meta:
         model = Employee
         fields = (
@@ -16,18 +26,19 @@ class EmployeeSerializer(serializers.ModelSerializer):
             'name',
             'position',
             'branch',
+            'branch_info',
             'phone_number',
             'birth_date',
+            'workschedules',
         )
 
+    def get_branch_info(self, obj):
+        if obj.branch:
+            branch_data = BranchSerializer(obj.branch).data
+            return branch_data
+        return None
 
-class WorkScheduleSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = WorkSchedule
-        fields = (
-            'day_of_week',
-            'start_time',
-            'end_time',
-            'employee'
-        )
+    def get_workschedules(self, obj):
+        workschedule = WorkSchedule.objects.filter(employee=obj)
+        workschedule_data = WorkScheduleSerializer(workschedule, many=True).data
+        return workschedule_data

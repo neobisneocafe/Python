@@ -20,4 +20,3 @@ class BranchViewSet(viewsets.ModelViewSet):
 class WorkScheduleViewSet(viewsets.ModelViewSet):
     queryset = WorkSchedule.objects.all()
     serializer_class = WorkScheduleSerializer
-

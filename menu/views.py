@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from drf_spectacular.utils import extend_schema
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
+from drf_spectacular.utils import extend_schema
 from .serializers import MenuCategorySerializer, MenuItemSerializer, ProductSerializer, MenuItemImageSerializer
 from .models import MenuCategory, MenuItem, Product, MenuItemImage
 
