@@ -14,24 +14,6 @@ class WorkScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkSchedule
         fields ='__all__'
-        unique_together = ('employee', 'day_of_week')
-
-
-    def clean(self):
-        cleaned_data = super().clean()
-        employee = cleaned_data.get('employee')
-        day_of_week = cleaned_data.get('day_of_week')
-
-        if employee and day_of_week:
-            # Проверяем, существует ли уже график работы для данного сотрудника и дня недели
-            existing_schedules = WorkSchedule.objects.filter(employee=employee, day_of_week=day_of_week)
-            if self.instance:
-                existing_schedules = existing_schedules.exclude(pk=self.instance.pk)
-
-            if existing_schedules.exists():
-                raise forms.ValidationError("График работы для данного сотрудника и дня недели уже существует.")
-
-        return cleaned_data
 
 class EmployeeSerializer(serializers.ModelSerializer):
     branch= serializers.PrimaryKeyRelatedField(queryset=Branch.objects.all(), allow_null=True)
