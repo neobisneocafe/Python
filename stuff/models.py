@@ -11,16 +11,11 @@ class Branch(models.Model):
 
 
 class Employee(models.Model):
-    position_choices = [
-        ('Оффициант', 'Оффициант'),
-        ('Бариста', 'Бариста'),
-        ('Админ', 'Админ'),
-    ]
-    position = models.CharField(max_length=255, choices=position_choices, null=True, default='client')
+    position = models.CharField(max_length=100, blank=False, null=True)
     objects = models.Manager()
     name = models.CharField(max_length=100,blank=False,null=False)
     branch = models.ForeignKey(Branch, on_delete=models.CASCADE,null=True)
-    phone_number = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=50,unique=True)
     birth_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
