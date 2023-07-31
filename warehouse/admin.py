@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Branches, Warehouse, WarehouseCategory
+from .models import Branches, Ingredients, ReadyProducts
 
 
 admin.site.register(Branches)
-admin.site.register(Warehouse)
-admin.site.register(WarehouseCategory)
+admin.site.register(Ingredients)
+admin.site.register(ReadyProducts)
