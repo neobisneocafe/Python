@@ -1,11 +1,5 @@
-from .models import Warehouse, Category, Branches
+from .models import Warehouse, Branches, WarehouseCategory
 from rest_framework import serializers
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['id', 'name', 'is_deleted']
 
 
 class BranchesSerializer(serializers.ModelSerializer):
@@ -17,4 +11,10 @@ class BranchesSerializer(serializers.ModelSerializer):
 class WarehouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Warehouse
+        fields = '__all__'
+
+
+class WarehouseCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WarehouseCategory
         fields = '__all__'

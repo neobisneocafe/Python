@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Order, Menu, UserProfile, Notification, WorkSchedule
+
+from stuff.models import WorkSchedule
+from .models import Order, Menu, UserProfile
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -22,13 +24,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class NotificationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Notification
-        fields = '__all__'
-
-
 class WorkScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = WorkSchedule
-        fields = ('day', 'start_time', 'end_time', 'is_weekend')
+        fields = '__all__'

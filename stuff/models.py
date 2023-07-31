@@ -1,21 +1,20 @@
 from django.db import models
 from datetime import time
-
-
-class Branch(models.Model):
-    objects = models.Manager()
-    name = models.CharField(max_length=100, blank=False, unique=True)
-
-    def __str__(self):
-        return self.name
+import warehouse.models
 
 
 class Employee(models.Model):
-    position = models.CharField(max_length=100, blank=False, null=True)
-    objects = models.Manager()
-    name = models.CharField(max_length=100,blank=False,null=False)
-    branch = models.ForeignKey(Branch, on_delete=models.CASCADE,null=True)
-    phone_number = models.CharField(max_length=50,unique=True)
+    POSITION_CHOICES = (
+        ('бариста', 'бариста'),
+        ('официант', 'официант'),
+        ('админ', 'админ'),
+        ('кассир', 'кассир'),
+        ('менеджер', 'менеджер'),
+    )
+    name = models.CharField(max_length=100)
+    position = models.CharField(max_length=100, choices=POSITION_CHOICES)
+    branch = models.ForeignKey(warehouse.models.Branches, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=50, unique=True)
     birth_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
@@ -24,7 +23,7 @@ class Employee(models.Model):
 
 class WorkSchedule(models.Model):
     objects = models.Manager()
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE,null=True)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True)
     day_of_week = models.CharField(max_length=20, choices=[
         ('monday', 'Понедельник'),
         ('tuesday', 'Вторник'),

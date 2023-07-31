@@ -45,8 +45,11 @@ class MenuItemSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         uploaded_images = validated_data.pop("uploaded_images", [])
+        products_data = validated_data.pop("products", [])
 
         menu_item = MenuItem.objects.create(**validated_data)
+        for product in products_data:
+            menu_item.products.add(product)
 
         for image in uploaded_images:
             MenuItemImage.objects.create(image=image, menuitem=menu_item)
