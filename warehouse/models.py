@@ -17,7 +17,7 @@ class Branches(models.Model):
 
 class ReadyProducts(models.Model):
     menu_item = models.ForeignKey(menu.models.MenuItem, on_delete=models.CASCADE)
-    quantity = models.CharField(default=1)
+    quantity = models.IntegerField(default=1)
     min_limit = models.IntegerField(default=1)
     arrivalDate = models.DateTimeField(default=timezone.now)
 
@@ -27,7 +27,7 @@ class ReadyProducts(models.Model):
 
 class Ingredients(models.Model):
     products = models.ForeignKey(menu.models.Product, on_delete=models.CASCADE)
-    quantity = models.CharField(default=1)
+    quantity = models.IntegerField(default=1)
     min_limit = models.IntegerField(default=1)
     arrivalDate = models.DateTimeField(default=timezone.now)
 
