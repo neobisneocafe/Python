@@ -15,7 +15,6 @@ class Product(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     weight = models.IntegerField(default=0)
     manufacture_date = models.DateField(auto_now_add=True, blank=False)
-    expiration_date = models.DateField(blank=False, null=False)
     active = models.BooleanField(default=True)
 
     def __str__(self):
