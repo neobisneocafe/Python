@@ -19,7 +19,7 @@ class ProductSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'weight',
-            'expiration_date',
+            'arrival_date',
         )
 
 
