@@ -19,7 +19,6 @@ class ProductSerializer(serializers.ModelSerializer):
             'id',
             'name',
             'weight',
-            'manufacture_date',
             'expiration_date',
         )
 
