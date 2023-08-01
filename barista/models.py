@@ -20,7 +20,7 @@ class Order(models.Model):
     order_contents = models.ManyToManyField(menu.models.MenuItem)
 
     def __str__(self):
-        return self.order_contents
+        return self.order_contents.name
 
 
 class Menu(models.Model):
