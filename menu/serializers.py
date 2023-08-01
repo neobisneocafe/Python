@@ -25,6 +25,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class MenuItemSerializer(serializers.ModelSerializer):
+
     products = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all(), many=True)
 
     uploaded_images = serializers.ListField(
