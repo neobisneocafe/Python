@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 import menu.models
 
 
@@ -28,7 +27,7 @@ class Ingredients(models.Model):
     products = models.ForeignKey(menu.models.Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     min_limit = models.IntegerField(default=1)
-    arrivalDate = models.DateTimeField(default=timezone.now)
+    arrivalDate = models.DateField(blank=False, null=False)
 
     def __str__(self):
         return self.products.name
