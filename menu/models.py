@@ -14,7 +14,7 @@ class Product(models.Model):
     objects = models.Manager()
     name = models.CharField(max_length=255, blank=False, null=False)
     weight = models.IntegerField(default=0)
-    expiration_date = models.DateField(blank=False, null=False)
+    arrival_date = models.DateField(blank=False, null=False)
     active = models.BooleanField(default=True)
 
     def __str__(self):
