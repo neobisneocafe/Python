@@ -7,8 +7,7 @@ class Branches(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
     phone = models.CharField(max_length=255)
-    opening_time = models.DateTimeField(default=timezone.now)
-    closing_time = models.DateTimeField(default=timezone.now)
+    working_time = models.CharField(max_length=255)
     location_url = models.URLField(max_length=100, blank=True)
 
     def __str__(self):
