@@ -1,5 +1,5 @@
 from drf_spectacular.utils import extend_schema
-from rest_framework import viewsets, filters
+from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -17,9 +17,6 @@ from .serializers import (
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
-    filter_backends = [filters.OrderingFilter, filters.SearchFilter]
-    filterset_fields = ['status']
-    search_fields = ['status']
 
     @action(detail=False, methods=['get'])
     def takeaway(self, request):
