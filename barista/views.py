@@ -18,17 +18,17 @@ class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-    @action(detail=False, methods=['get'])
-    def takeaway(self, request):
-        orders = self.get_queryset().filter(status__in=['new', 'in_progress']).order_by('id')
-        serializer = self.get_serializer(orders, many=True)
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        serializer.save()
+        order_instance = serializer.instance
 
-    @action(detail=False, methods=['get'])
-    def in_institution(self, request):
-        orders = self.get_queryset().filter(status__in=['ready']).order_by('id')
-        serializer = self.get_serializer(orders, many=True)
-        return Response(serializer.data)
+        for product in order_instance.products.all():
+            product.quantity -= 1
+            product.save()
+
+        for menu_item in order_instance.menu_items.all():
+            menu_item.quantity -= 1
+            menu_item.save()
 
 
 @extend_schema(tags=["Menu"])
