@@ -1,8 +1,10 @@
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAuthenticated,IsAdminUser
+from django.db import transaction
+from rest_framework.response import Response
+from rest_framework import viewsets,status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, IsAdminUser
 from drf_spectacular.utils import extend_schema
-from .serializers import MenuCategorySerializer,MenuItemSerializer,ProductSerializer,MenuItemImageSerializer
-from .models import MenuCategory,MenuItem,Product,MenuItemImage
+from .serializers import MenuCategorySerializer, MenuItemSerializer, ProductSerializer
+from .models import MenuCategory, MenuItem, Products
 
 
 @extend_schema(tags=["Menu Category"])
@@ -10,8 +12,6 @@ class MenuCategoryViewSet(viewsets.ModelViewSet):
     queryset = MenuCategory.objects.all()
     serializer_class = MenuCategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-
 @extend_schema(tags=["Menu Items"])
 class MenuItemViewSet(viewsets.ModelViewSet):
     queryset = MenuItem.objects.all()
@@ -19,15 +19,10 @@ class MenuItemViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
+
 @extend_schema(tags=["Products"])
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    queryset = Products.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAdminUser]
 
-
-@extend_schema(tags=["Menu Item Images"])
-class MenuItemImageViewSet(viewsets.ModelViewSet):
-    queryset = MenuItemImage.objects.all()
-    serializer_class = MenuItemImageSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
