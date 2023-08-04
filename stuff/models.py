@@ -47,4 +47,4 @@ class WorkSchedule(models.Model):
     end_time = models.TimeField(default=time(0, 0))
 
     def __str__(self):
-        return f"{self.employee} - {self.day_of_week}"
+        return self.day_of_week

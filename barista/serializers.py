@@ -6,6 +6,8 @@ from .models import Order, Menu, UserProfile
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    total_price = serializers.DecimalField(max_digits=10, decimal_places=0, read_only=True)
+
     class Meta:
         model = Order
         fields = '__all__'
