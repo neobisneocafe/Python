@@ -19,7 +19,7 @@ class Products(models.Model):
     min_limit = models.DecimalField(max_digits=3, decimal_places=0, default=1)
 
     def __str__(self):
-        return self.name
+        return f"{self.name} ({self.pk})"
 
 
 class MenuItem(models.Model):
