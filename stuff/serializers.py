@@ -15,8 +15,6 @@ class WorkScheduleSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    workschedules = WorkScheduleSerializer(many=True, read_only=True)
-
     class Meta:
         model = Employee
         fields = (
@@ -26,5 +24,4 @@ class EmployeeSerializer(serializers.ModelSerializer):
             'branch',
             'phone_number',
             'birth_date',
-            'workschedules',
         )

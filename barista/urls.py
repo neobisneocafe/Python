@@ -1,6 +1,5 @@
 from django.urls import include, path
 from rest_framework import routers
-from stuff.views import WorkScheduleViewSet
 from .views import OrderViewSet, MenuViewSet, UserProfileViewSet
 
 router = routers.DefaultRouter()
