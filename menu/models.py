@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 
 
 class MenuCategory(models.Model):
@@ -19,10 +18,8 @@ class Products(models.Model):
     quantity = models.DecimalField(max_digits=3, decimal_places=0, default=1)
     min_limit = models.DecimalField(max_digits=3, decimal_places=0, default=1)
 
-
     def __str__(self):
         return self.name
-
 
 
 class MenuItem(models.Model):
@@ -37,8 +34,5 @@ class MenuItem(models.Model):
     min_limit = models.DecimalField(max_digits=3, decimal_places=0, default=1)
     arrivalDate = models.DateField(blank=False, null=False)
 
-
     def __str__(self):
         return self.name
-
-

@@ -1,8 +1,7 @@
 from datetime import time
-
 from django.db import models
 from menu.models import MenuItem
-from stuff.models import WorkSchedule, Employee
+from stuff.models import Employee
 
 
 class Order(models.Model):

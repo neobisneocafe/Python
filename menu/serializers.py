@@ -11,6 +11,7 @@ class MenuCategorySerializer(serializers.ModelSerializer):
             'photo',
         )
 
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
@@ -23,8 +24,8 @@ class ProductSerializer(serializers.ModelSerializer):
             'min_limit',
         )
 
-class MenuItemSerializer(serializers.ModelSerializer):
 
+class MenuItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = MenuItem
         fields = (
@@ -42,7 +43,6 @@ class MenuItemSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         products_data = self.initial_data.get("products", [])
-
         for product_id in products_data:
             try:
                 product = Products.objects.get(pk=product_id)
@@ -52,5 +52,4 @@ class MenuItemSerializer(serializers.ModelSerializer):
                     )
             except Products.DoesNotExist:
                 raise serializers.ValidationError(f"Product with ID {product_id} does not exist.")
-
         return data
