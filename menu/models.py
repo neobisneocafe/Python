@@ -2,6 +2,7 @@ from django.db import models
 
 
 class MenuCategory(models.Model):
+    objects = models.Manager()
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
     photo = models.ImageField(upload_to='photos/menucategory', blank=True, null=True)
 
@@ -10,17 +11,21 @@ class MenuCategory(models.Model):
 
 
 class Products(models.Model):
-    name = models.CharField(max_length=255, blank=False, null=False)
+    objects = models.Manager()
+    name = models.CharField(max_length=255, blank=False, null=False,unique=True)
     weight = models.IntegerField(default=0)
     arrival_date = models.DateField(blank=False, null=False)
     quantity = models.IntegerField(default=1)
     min_limit = models.IntegerField(default=1)
 
+
     def __str__(self):
         return self.name
 
 
+
 class MenuItem(models.Model):
+    objects = models.Manager()
     category = models.ForeignKey(MenuCategory, on_delete=models.CASCADE, null=True)
     products = models.ManyToManyField(Products)
     name = models.CharField(max_length=255, blank=False, null=False, unique=True)
@@ -31,5 +36,8 @@ class MenuItem(models.Model):
     min_limit = models.IntegerField(default=1)
     arrivalDate = models.DateField(blank=False, null=False)
 
+
     def __str__(self):
         return self.name
+
+
