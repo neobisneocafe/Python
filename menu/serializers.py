@@ -11,7 +11,6 @@ class MenuCategorySerializer(serializers.ModelSerializer):
             'photo',
         )
 
-
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Products
@@ -25,7 +24,13 @@ class ProductSerializer(serializers.ModelSerializer):
         )
 
 
+    def create(self, validated_data):
+        if validated_data['quantity'] > validated_data['min_limit']:
+            raise serializers.ValidationError(" Minimum limit cannot be less than the quantity.")
+
+        return Products.objects.create(**validated_data)
 class MenuItemSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = MenuItem
         fields = (
@@ -40,3 +45,10 @@ class MenuItemSerializer(serializers.ModelSerializer):
             'arrivalDate',
             'image',
         )
+
+    def create(self, validated_data):
+        if validated_data['quantity'] > validated_data['min_limit']:
+            raise serializers.ValidationError("Minimum limit cannot be less than the quantity.")
+
+        return MenuItem.objects.create(**validated_data)
+
