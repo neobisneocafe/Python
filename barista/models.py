@@ -1,6 +1,6 @@
 from datetime import time
 from django.db import models
-from menu.models import MenuItem
+from menu.models import MenuItem, Products
 from stuff.models import Employee
 
 
@@ -17,6 +17,7 @@ class Order(models.Model):
     is_takeaway = models.BooleanField(default=False)
     table = models.DecimalField(max_digits=2, decimal_places=0, null=True, default=None)
     order_content = models.ManyToManyField(MenuItem)
+    supplements = models.ManyToManyField(Products, blank=True, null=True)
 
     def total_price(self):
         total = 0
