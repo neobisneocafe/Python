@@ -17,7 +17,7 @@ class Order(models.Model):
     is_takeaway = models.BooleanField(default=False)
     table = models.DecimalField(max_digits=2, decimal_places=0, null=True, default=None)
     order_content = models.ManyToManyField(MenuItem)
-    supplements = models.ManyToManyField(Products, blank=True, null=True)
+    supplements = models.ManyToManyField(Products, blank=True)
 
     def total_price(self):
         total = 0
